@@ -1,0 +1,88 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de usuario</title>
+
+    <link rel="stylesheet"
+          href="{% static 'usuarios/styles.css' %}">
+</head>
+<body>
+
+    <main class="contenedor">
+        <section class="formulario">
+            <header class="encabezado">
+                <h1>Registro de usuario</h1>
+                <p>Complete los datos del nuevo usuario.</p>
+            </header>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="mensaje {{ message.tags }}"
+                       role="status">
+                        {{ message }}
+                    </p>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="{% url 'registrar_usuario' %}">
+                {% csrf_token %}
+
+                <div class="grupo-campo">
+                    <label for="dni">DNI</label>
+                    <input type="text" id="dni" name="dni"
+                           maxlength="8" pattern="[0-9]{8}"
+                           inputmode="numeric" required>
+                </div>
+
+                <div class="grupo-campo">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" id="nombres" name="nombres"
+                           maxlength="100" required>
+                </div>
+
+                <div class="grupo-campo">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" id="apellidos" name="apellidos"
+                           maxlength="100" required>
+                </div>
+
+                <div class="grupo-campo">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono"
+                           maxlength="9" pattern="[0-9]{9}"
+                           inputmode="numeric" required>
+                </div>
+
+                <div class="grupo-campo">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" name="correo"
+                           maxlength="254" required>
+                </div>
+
+                <div class="grupo-campo">
+                    <label for="estado">Rol</label>
+                    <select id="estado" name="estado" required>
+                        <option value="">Seleccione un rol</option>
+                        <option value="Director">Director</option>
+                        <option value="Tutor">Tutor</option>
+                    </select>
+                </div>
+
+                <div class="acciones">
+                    <button type="submit" class="btn-registrar">
+                        Registrar usuario
+                    </button>
+                    <button type="reset" class="btn-limpiar">
+                        Limpiar
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>

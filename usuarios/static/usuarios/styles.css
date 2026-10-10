@@ -1,0 +1,169 @@
+
+/* Configuración general */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f2f5f9;
+    color: #263445;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+}
+
+/* Contenedor principal */
+.contenedor {
+    width: 100%;
+    max-width: 600px;
+}
+
+.formulario {
+    background-color: #ffffff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Encabezado */
+.encabezado {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.encabezado h1 {
+    font-size: 27px;
+    color: #1d3557;
+    margin-bottom: 10px;
+}
+
+.encabezado p {
+    color: #687586;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Campos */
+.grupo-campo {
+    margin-bottom: 20px;
+}
+
+.grupo-campo label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.grupo-campo input,
+.grupo-campo select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 15px;
+    background-color: #ffffff;
+    color: #263445;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.grupo-campo input:focus,
+.grupo-campo select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.grupo-campo input::placeholder {
+    color: #9aa5b4;
+}
+
+/* Botones */
+.acciones {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.acciones button {
+    flex: 1;
+    padding: 13px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-registrar {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+.btn-registrar:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-limpiar {
+    background-color: #e5eaf1;
+    color: #334155;
+}
+
+.btn-limpiar:hover {
+    background-color: #d5dde8;
+}
+
+/* Mensajes */
+.mensaje {
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+.mensaje.exito {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.mensaje.error {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+@media (max-width: 480px) {
+    .formulario {
+        padding: 24px 18px;
+    }
+
+    .encabezado h1 {
+        font-size: 23px;
+    }
+
+    .acciones {
+        flex-direction: column;
+    }
+}
+
+.mensaje.success {
+    background-color: #dcfce7;
+    color: #166534;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+}
+
+.mensaje.error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+}
