@@ -101,6 +101,7 @@ body {
     transition: background-color 0.2s;
 }
 
+
 .btn-registrar {
     background-color: #2563eb;
     color: #ffffff;
@@ -166,4 +167,28 @@ body {
     padding: 12px;
     margin-bottom: 16px;
     border-radius: 6px;
+}
+
+.acciones-superiores {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-listado-aulas {
+    display: inline-block;
+    padding: 11px 18px;
+    background: #2563eb;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn-listado-aulas:hover {
+    background: #1d4ed8;
 }

@@ -1,0 +1,172 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Listado de usuarios</title>
+
+    <link rel="stylesheet"
+          href="{% static 'usuarios/listado.css' %}">
+</head>
+<body>
+
+    <main class="contenedor">
+        <header class="encabezado">
+            <div>
+                <h1>Listado de usuarios</h1>
+                <p>Administración de usuarios del sistema académico</p>
+            </div>
+
+            <a href="{% url 'registrar_usuario' %}"
+               class="btn-nuevo">
+                Nuevo usuario
+            </a>
+            <a href="{% url 'listado_aulas' %}"
+               class="btn-nuevo">
+                Listado de Aulas
+            </a>
+        </header>
+
+        <section class="panel">
+            <div class="resumen">
+                <span>Usuarios registrados</span>
+                <strong>{{ usuarios|length }}</strong>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DNI</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Asignar Aula</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{ usuario.dni }}</td>
+                            <td>{{ usuario.nombres }}</td>
+                            <td>{{ usuario.apellidos }}</td>
+                            <td>{{ usuario.telefono }}</td>
+                            <td>{{ usuario.correo }}</td>
+
+                            <td>
+                                <span class="rol
+                                    {% if usuario.estado == 'Tutor' %}
+                                        rol-tutor
+                                    {% else %}
+                                        rol-director
+                                    {% endif %}">
+                                    {{ usuario.estado }}
+                                </span>
+                            </td>                 
+                            <td>
+                                {% if usuario.estado == "Tutor" %}
+                                    <button
+                                        type="button"
+                                        class="btn-asignar"
+                                        data-tutor-id="{{ usuario.id_usuario }}"
+                                        data-tutor-nombre="{{ usuario.nombres }} {{ usuario.apellidos }}"
+                                        onclick="abrirModal(this)">
+                                        Asignar Aula
+                                    </button>
+                                {% else %}
+                                    <button
+                                        type="button"
+                                        class="btn-asignar deshabilitado"
+                                        disabled>
+                                        Asignar Aula
+                                    </button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="sin-registros">
+                                No hay usuarios registrados.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="pie">
+            -
+        </footer>
+
+<!-- Ventana modal para asignar aula -->
+<div id="modalAula" class="modal" hidden>
+    <div class="modal-contenido"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloModal">
+
+        <button type="button" class="modal-cerrar"
+                onclick="cerrarModal()" aria-label="Cerrar">
+            &times;
+        </button>
+
+        <h2 id="tituloModal">Asignar aula</h2>
+
+        <p class="modal-descripcion">
+            Selecciona el grado y la sección para el tutor.
+        </p>
+
+        <p class="nombre-tutor">
+            Tutor: <strong id="nombreTutor"></strong>
+        </p>
+
+        <form method="POST" action="{% url 'asignar_aula' %}">
+            {% csrf_token %}
+
+            <input type="hidden" name="tutor_id" id="tutorId">
+
+            <div class="grupo-campo">
+                <label for="aulaId">Aula disponible</label>
+
+                <select name="aula_id" id="aulaId" required>
+                    <option value="">Selecciona un aula</option>
+
+                    {% for aula in aulas %}
+                        <option
+                            value="{{ aula.idaula }}"
+                            data-tutor-actual="{{ aula.id_usuario|default_if_none:'' }}"
+                            {% if aula.id_usuario %}disabled{% endif %}>
+                            {{ aula.grado }} — {{ aula.seccion }}
+                            {% if aula.id_usuario %}
+                                (Asignada)
+                            {% endif %}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="modal-acciones">
+                <button type="button" class="btn-cancelar"
+                        onclick="cerrarModal()">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="btn-confirmar">
+                    Confirmar asignación
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'usuarios/listado.js' %}" defer></script>
+</main>
+</body>
+</html>
